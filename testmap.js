@@ -56,7 +56,7 @@ function addMarkers(data) {
         let popup = new mapboxgl.Popup({ offset: 25 }).setHTML(content);
 
         new mapboxgl.Marker(el)
-            .setLngLat([item.longitude, item.latitude])
+            .setLngLat([item.lon, item.lat])
             .setPopup(popup)
             .addTo(map);
     });
