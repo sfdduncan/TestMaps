@@ -1,6 +1,6 @@
 'use strict';
 
-console.log('Loaded map.js');
+console.log('Loaded testmap.js');
 
 // Set your Mapbox access token
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2ZkdW5jYW4iLCJhIjoiY2x2Z3QybHh2MHlwcTJpczJyejAyYWVpNyJ9.DLToR14vGnafkx-pCGj6KA';
@@ -27,7 +27,7 @@ let scale = new mapboxgl.ScaleControl({
 map.addControl(scale, 'bottom-right');
 
 // Include PapaParse to parse CSV
-const csvUrl = 'https://raw.githubusercontent.com/yourusername/yourrepository/main/LandmarksAtsede.csv';
+const csvUrl = 'https://raw.githubusercontent.com/sfdduncan/TestMaps/main/LandmarksAtsede.csv';
 
 fetch(csvUrl)
 .then(response => response.text())
