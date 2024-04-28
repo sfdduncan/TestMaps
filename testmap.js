@@ -27,7 +27,7 @@ let scale = new mapboxgl.ScaleControl({
 map.addControl(scale, 'bottom-right');
 
 // Include PapaParse to parse CSV
-const csvUrl = 'https://github.com/sfdduncan/TestMaps/blob/c926f0ce9f94818d638052179b04b1e49144145b/LandmarksAtsede.csv';
+const csvUrl = 'https://raw.githubusercontent.com/sfdduncan/TestMaps/main/LandmarksAtsede.csv';
 
 fetch(csvUrl)
 .then(response => response.text())
