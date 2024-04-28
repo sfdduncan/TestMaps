@@ -2,10 +2,9 @@
 
 console.log('Loaded testmap.js');
 
-// Set your Mapbox access token
+// Your Mapbox access token
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2ZkdW5jYW4iLCJhIjoiY2x2Z3QybHh2MHlwcTJpczJyejAyYWVpNyJ9.DLToR14vGnafkx-pCGj6KA';
 
-// Initialize the map
 let map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/sfduncan/clvgsemvr05kv01nuggof5gin',
@@ -15,11 +14,11 @@ let map = new mapboxgl.Map({
     pitch: 65.00
 });
 
-// Add navigation control (without compass)
+// Create an instance of NavigationControl
 let navigation = new mapboxgl.NavigationControl({ showCompass: false });
 map.addControl(navigation, 'top-left');
 
-// Add scale control
+// Create an instance of ScaleControl
 let scale = new mapboxgl.ScaleControl({
     maxWidth: 80,
     unit: 'imperial'
@@ -43,21 +42,33 @@ fetch(csvUrl)
 .catch(error => console.error('Error fetching or parsing data: ', error));
 
 function addMarkers(data) {
+    // Clear existing markers
+    if (window.markers) {
+        window.markers.forEach(marker => marker.remove());
+    }
+    window.markers = [];
+
     data.forEach(item => {
-        var content = '';
-        // Construct the content with bold headers and normal data, each on a new line
-        for (const [key, value] of Object.entries(item)) {
-            content += `<strong>${key}:</strong> ${value}<br>`;
-        }
+        var content = `<b>Landmark:</b> ${item.LandmarkName}<br>
+<b>Purpose:</b> ${item.Purpose}<br>
+<b>Location:</b> ${item.Location}<br>
+<b>Architect:</b> ${item.Architect}<br>
+<b>Nationality:</b> ${item.Nationality}<br>
+<b>Year Built:</b> ${item.YearBuilt}<br>;
 
         var el = document.createElement('div');
-        el.innerHTML = '<svg height="30" width="30"><circle cx="15" cy="15" r="10" fill="#ffcc00" fill-opacity="0.75" /></svg>';
+        el.innerHTML = '<svg height="30" width="30"><circle cx="15" cy="15" r="14" fill="#ffcc00" fill-opacity="0.75" /></svg>';
 
-        let popup = new mapboxgl.Popup({ offset: 25 }).setHTML(content);
-
-        new mapboxgl.Marker(el)
-            .setLngLat([item.lon, item.lat])
-            .setPopup(popup)
+        let marker = new mapboxgl.Marker(el)
+            .setLngLat([parseFloat(item.Longitude), parseFloat(item.Latitude)])
+            .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(content))
             .addTo(map);
+
+        window.markers.push(marker);
     });
 }
+
+// Event listener for the architect nationality filter
+document.getElementById('architectFilter').addEventListener('change', function(e) {
+    addMarkers(data.filter(d => d.Nationality === e.target.value || e.target.value === ''));
+});
