@@ -60,7 +60,7 @@ function addMarkers(data) {
         el.innerHTML = '<svg height="30" width="30"><circle cx="15" cy="15" r="14" fill="#ffcc00" fill-opacity="0.75" /></svg>';
 
         let marker = new mapboxgl.Marker(el)
-            .setLngLat([parseFloat(item.Longitude), parseFloat(item.Latitude)])
+            .setLngLat([parseFloat(item.lon), parseFloat(item.lat)])
             .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(content))
             .addTo(map);
 
