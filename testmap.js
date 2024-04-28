@@ -15,7 +15,7 @@ let map = new mapboxgl.Map({
 });
 
 // Create an instance of NavigationControl
-let navigation = new mapboxgl.NavigationControl({ showCompass: false });
+let navigation = new mapboxgl.NavigationControl({ showCompass: true });
 map.addControl(navigation, 'top-left');
 
 // Create an instance of ScaleControl
